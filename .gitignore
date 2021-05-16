@@ -1,0 +1,4 @@
+/log/*.json
+/out/*
+/settings/*/*.csv
+/settings/*/*.ods
