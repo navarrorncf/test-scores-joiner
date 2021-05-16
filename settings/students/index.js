@@ -1,10 +1,10 @@
-const load = require("../utils/load");
-const normalizeString = require("../utils/normalizeString");
-const validateGroupName = require("./groups");
+const load = require("../../utils/load");
+const normalizeString = require("../../utils/normalizeString");
+const validateGroupName = require("../groups");
 
-const csvFileContents = normalizeString(
-  load(__dirname, "students", "students.csv")
-).split("\n");
+const csvFileContents = normalizeString(load(__dirname, "students.csv")).split(
+  "\n"
+);
 
 let groupName = null;
 
