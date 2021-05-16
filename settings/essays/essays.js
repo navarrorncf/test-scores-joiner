@@ -1,6 +1,6 @@
-const load = require("../utils/load");
+const load = require("../../utils/load");
 
-const csvEssays = load(__dirname, "essays/redação.csv");
+const csvEssays = load(__dirname, "redação.csv");
 
 const parseLine = (line) => {
   const [code, name, essayScore, mod] = line.split(",");
