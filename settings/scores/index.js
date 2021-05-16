@@ -1,14 +1,12 @@
-const load = require("../utils/load");
-const normalizeString = require("../utils/normalizeString");
-const validateGroup = require("./groups");
+const load = require("../../utils/load");
+const normalizeString = require("../../utils/normalizeString");
+const validateGroup = require("../groups");
 
 const bimester = 1;
 const regex = new RegExp(`\.${bimester}\.`);
 
 const loadFile = (fileName) => ({
-  [fileName.split(".")[0]]: normalizeString(
-    load(__dirname, "scores", fileName)
-  ),
+  [fileName.split(".")[0]]: normalizeString(load(__dirname, fileName)),
 });
 
 const pluckCode = (email) => {
@@ -37,10 +35,11 @@ const parseScores = (rawObject) => {
 };
 
 const gradesData = require("fs")
-  .readdirSync(`${__dirname}/scores`)
+  .readdirSync(__dirname)
   .filter((file) => /csv$/.test(file) && regex.test(file))
   .map(loadFile)
   .map(parseScores)
   .reduce((acc, cur) => [...acc, ...cur], []);
 
 module.exports = gradesData;
+console.log(gradesData);
