@@ -1,5 +1,4 @@
-const load = require("../../utils/load");
-const normalizeString = require("../../utils/normalizeString");
+const { load, normalizeString } = require("../../utils");
 const validateGroup = require("../groups");
 
 const bimester = 1;
@@ -42,4 +41,3 @@ const gradesData = require("fs")
   .reduce((acc, cur) => [...acc, ...cur], []);
 
 module.exports = gradesData;
-console.log(gradesData);

@@ -1,5 +1,4 @@
-const load = require("../../utils/load");
-const normalizeString = require("../../utils/normalizeString");
+const { load, normalizeString } = require("../../utils");
 const validateGroupName = require("../groups");
 
 const csvFileContents = normalizeString(load(__dirname, "students.csv")).split(

@@ -1,4 +1,4 @@
-const load = require("../../utils/load");
+const { load } = require("../../utils");
 
 const csvEssays = load(__dirname, "redação.csv");
 
