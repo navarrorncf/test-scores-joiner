@@ -36,12 +36,17 @@ const addStudent = (student) => {
   csvStudents += `${g},${c},${n},${exatas},${er},${humanas},${hr},${linguagens},${lr},`;
 
   if (errors) {
-    csvStudents += `${
-      errors.nameMismatch ? "Nome preenchido: " + reportedName : ""
-    },`;
-    csvStudents += `${
-      errors.emailMismatch ? "Email usado: " + reportedEmail : ""
-    }`;
+    const { nameMismatch, emailMismatch } = errors;
+    if (nameMismatch) {
+      Object.keys(nameMismatch).forEach((field) => {
+        csvStudents += `Nome preenchido (${field}): ${nameMismatch[field]},`;
+      });
+    }
+    if (emailMismatch) {
+      Object.keys(emailMismatch).forEach((field) => {
+        csvStudents += `Email utilizado (${field}): ${emailMismatch[field]},`;
+      });
+    }
   }
   csvStudents += "\n";
 };
