@@ -14,9 +14,18 @@ class CustomError extends Error {
   }
 }
 
-const flag = (object, tag) => {
-  if (!object.errors) object.errors = {};
-  object.errors[tag] = true;
+const flag = (student, score, { tag, payload }) => {
+  if (!student.errors) student.errors = { [tag]: {} };
+  else if (!student.errors[tag]) student.errors[tag] = {};
+
+  if (!isNaN(score.exatas * 1)) {
+    student.errors[tag].exatas = payload;
+  } else if (!isNaN(score.humanas * 1)) {
+    student.errors[tag].humanas = payload;
+  } else if (!isNaN(score.linguagens * 1)) {
+    student.errors[tag].linguagens = payload;
+  }
+  console.log(student.errors);
 };
 
 const checkGroup = (scoreObject) => {
@@ -61,7 +70,10 @@ const checkName = (scoreObject) => {
 
     let regex = new RegExp(reportedName.split(" ").join(".+") + ".*");
     if (!regex.test(actualName)) {
-      flag(student, "nameMismatch");
+      flag(student, scoreObject, {
+        tag: "nameMismatch",
+        payload: reportedName,
+      });
       student.reportedName = reportedName;
       throw new CustomError(`Name mismatch: ${code}`, code);
     }
@@ -95,7 +107,10 @@ const checkEmail = (scoreObject) => {
       (reportedEmail !== actualEmail ||
         !/\@ESTUDANTE\.SE\.DF\.GOV\.BR/.test(reportedEmail))
     ) {
-      flag(student, "emailMismatch");
+      flag(student, scoreObject, {
+        tag: "emailMismatch",
+        payload: reportedEmail,
+      });
       student.reportedEmail = reportedEmail;
       throw new CustomError(`Email mismatch: ${reportedEmail}`, code);
     }
